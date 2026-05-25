@@ -1,5 +1,104 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Intelligence | INVENEW</title><link rel="stylesheet" href="styles.css"></head>
-<body><main class="section page-hero"><p class="eyebrow">Intelligence</p><h1>Premium signal for enterprise AI decisions.</h1><p class="hero-text">Briefings, buyer guides, operator notes, and sponsored intelligence for leaders building the AI-native stack.</p><a class="btn" href="index.html">Home</a></main></body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Intelligence | INVENEW</title>
+    <link rel="icon" href="assets/INVENEW-favicon1.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header" data-elevated="false">
+      <a class="brand" href="index.html"><img class="brand-logo logo-light" src="assets/INVENEW-light-long1.png" alt="INVENEW"><img class="brand-logo logo-dark" src="assets/INVENEW-dark-long1.png" alt="INVENEW"></a>
+      <nav class="nav" aria-label="Primary navigation"><a href="intelligence.html">Intelligence</a><a href="labs.html">Labs</a><a href="newsletter.html">Newsletter</a><a href="sponsors.html">Sponsors</a><a href="blog.html">Blog</a><a href="about.html">About</a></nav>
+      <div class="header-actions"><button class="icon-btn" id="searchToggle" aria-label="Search site" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"/></svg></button><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button"><span class="toggle-track"><span class="toggle-thumb"></span></span><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4V2m0 20v-2m8-8h2M2 12h2m14.36-6.36 1.42-1.42M4.22 19.78l1.42-1.42m0-12.72L4.22 4.22m15.56 15.56-1.42-1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z"/></svg></button><a class="btn btn-small" href="newsletter.html">Subscribe</a><button class="icon-btn menu-btn" id="menuToggle" aria-label="Open menu" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div>
+    </header>
+    <div class="mobile-panel" id="mobilePanel" aria-hidden="true"><a href="intelligence.html">Intelligence</a><a href="labs.html">Labs</a><a href="newsletter.html">Newsletter</a><a href="sponsors.html">Sponsors</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
+    <div class="search-panel" id="searchPanel" aria-hidden="true"><div class="search-box"><label for="siteSearch">Search INVENEW</label><div class="search-row"><input id="siteSearch" type="search" placeholder="Try AI infrastructure, LLMOps, sponsor briefs..."><button class="btn" id="clearSearch" type="button">Clear</button></div><div class="search-results" id="searchResults"></div></div></div>
+    <main>
+      <section class="page-hero section"><p class="eyebrow">Intelligence</p><h1>Market clarity for AI-native infrastructure leaders.</h1><p class="hero-text">INVENEW Intelligence turns vendor noise, technical shifts, and emerging AI-SaaS patterns into sharp research for operators and founders.</p></section>
+      <section class="section intelligence-pillars">
+        <article><h3>Executive signal</h3><p>Clear analysis for CIOs, CTOs, COOs, AI leaders, transformation teams, and business executives.</p></article>
+        <article><h3>Vendor-neutral lens</h3><p>Useful for buyers and sponsors without becoming generic vendor marketing.</p></article>
+        <article><h3>Execution focus</h3><p>Governance, security, infrastructure, operating models, adoption, ROI, and scale.</p></article>
+      </section>
+
+      <section class="latest-intelligence">
+        <div class="latest-inner">
+          <div class="section-title-row">
+            <h2>Latest intelligence.</h2>
+            <p>Signature formats designed to turn noise into practical decisions.</p>
+          </div>
+          <div class="latest-grid">
+            <article class="flagship-brief">
+              <span class="pill">Flagship report</span>
+              <h3>The Production AI Stack: from prototype to reliable system</h3>
+              <p>A field guide to infrastructure, evals, orchestration, security, and application patterns teams need before AI products can scale beyond demos.</p>
+              <a class="btn btn-secondary" href="newsletter.html">Read the brief</a>
+            </article>
+            <div class="brief-list">
+              <article><span>Agent Watch • 8 min read</span><h3>Agents are not magic employees. They are systems.</h3><p>Why winners design workflows, evals, permissions, and fallback paths before chasing autonomy.</p></article>
+              <article><span>Infra Index • Monthly</span><h3>Inference cost is becoming a product feature</h3><p>How latency, routing, caching, and model choice shape the margin profile of AI-native applications.</p></article>
+              <article><span>Build Notes • Hands-on</span><h3>Designing a RAG app that survives production</h3><p>Chunking, retrieval quality, eval sets, observability, and user feedback loops in one implementation guide.</p></article>
+            </div>
+          </div>
+          <div class="asset-grid">
+            <article><span>01 / Databases</span><h3>AI Stack Directory</h3><p>A living database of infrastructure vendors, agent frameworks, app platforms, open-source tools, and enterprise AI products.</p></article>
+            <article><span>02 / Comparisons</span><h3>Buyer Guides</h3><p>Independent comparisons of vector databases, observability tools, inference providers, agent frameworks, and LLM gateways.</p></article>
+            <article><span>03 / Community</span><h3>Builder Network</h3><p>Private roundtables, architecture reviews, demo days, and technical conversations for people deploying AI systems.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="intelligence-system">
+        <div class="system-inner">
+          <p class="eyebrow">Coverage System</p>
+          <div class="coverage-list">
+            <article><span>01</span><div><h3>AI agents in production</h3><p>Workflow redesign, human-in-the-loop models, reliability, orchestration, and enterprise operating lessons.</p></div></article>
+            <article><span>02</span><div><h3>Governance, security, and trust</h3><p>Model risk, compliance, auditability, data exposure, cyber controls, policy, and responsible adoption.</p></div></article>
+            <article><span>03</span><div><h3>Infrastructure and platforms</h3><p>Data readiness, cloud architecture, observability, cost control, integration, and AI operations.</p></div></article>
+            <article><span>04</span><div><h3>ROI and vendor selection</h3><p>Business cases, category maps, buyer guides, pricing logic, adoption benchmarks, and proof-of-value discipline.</p></div></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section editorial-promise">
+        <div>
+          <h2>The weekly editorial promise.</h2>
+          <p>Every issue should help leaders answer four questions: What changed? Why does it matter? What should we do? Which vendors, risks, or categories deserve attention?</p>
+        </div>
+        <aside>
+          <h3>INVENEW lens</h3>
+          <p>Not AI news. Not tutorials. Executive intelligence for enterprise AI execution.</p>
+        </aside>
+      </section>
+    </main>
+    <footer class="footer">
+      <div class="footer-main">
+        <div class="footer-intro">
+          <a href="index.html" class="footer-brand" aria-label="INVENEW home"><img src="assets/INVENEW-dark-long1.png" alt="INVENEW"></a>
+          <p>Founder-led intelligence for AI-native infrastructure, AI-SaaS operations, and the future software stack.</p>
+        </div>
+        <nav class="footer-col" aria-label="Footer platform links">
+          <h2>Platform</h2>
+          <a href="intelligence.html">Intelligence</a>
+          <a href="labs.html">Labs</a>
+          <a href="newsletter.html">Newsletter</a>
+          <a href="sponsors.html">Sponsors</a>
+        </nav>
+        <nav class="footer-col" aria-label="Footer company links">
+          <h2>Company</h2>
+          <a href="blog.html">Blog</a>
+          <a href="about.html">About</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="legal.html">Legal</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 INVENEW Inc. All rights reserved.</p>
+        <a href="newsletter.html">Subscribe</a>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
 </html>
