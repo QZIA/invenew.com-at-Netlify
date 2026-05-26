@@ -1605,20 +1605,55 @@ h3 {
 }
 
 .newsletter-issue-card {
+  display: grid;
+  grid-template-columns: 82px minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
   width: 100%;
-  padding: 20px;
+  padding: 14px;
   text-align: left;
   cursor: pointer;
+}
+
+.newsletter-issue-thumb {
+  width: 82px;
+  aspect-ratio: 1;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  object-fit: cover;
+  background: var(--beige);
+}
+
+.newsletter-issue-thumb-fallback {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--beige), var(--blue));
+  color: var(--text);
+  font-weight: 900;
+}
+
+.newsletter-issue-card-copy {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+}
+
+.newsletter-issue-card-title {
+  color: var(--text);
+  font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+  font-weight: 850;
+  line-height: 1.08;
+}
+
+.newsletter-issue-card-summary {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
 }
 
 .newsletter-issue-card.is-active {
   border-color: var(--text);
   background: var(--blue);
-}
-
-.newsletter-issue-card h3 {
-  margin-bottom: 10px;
-  font-size: clamp(1.2rem, 2vw, 1.55rem);
 }
 
 .newsletter-issue-card p:not(.post-kicker),
@@ -1664,6 +1699,35 @@ h3 {
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 22px;
+}
+
+.newsletter-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0 0;
+}
+
+.newsletter-pagination button {
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.newsletter-pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.newsletter-pagination span {
+  color: var(--muted);
+  font-weight: 800;
 }
 
 .subscribe-section {

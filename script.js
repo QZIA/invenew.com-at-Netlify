@@ -404,7 +404,27 @@ function renderNewsletterIssueDetail(issue) {
     '<div class="newsletter-issue-content">' + content + '</div>';
 }
 
-function renderNewsletterIssues(issues = []) {
+const newsletterIssuesPerPage = 10;
+let newsletterIssuesPage = 0;
+
+function newsletterIssueThumbnail(issue, index) {
+  if (issue.thumbnailUrl) {
+    return '<img class="newsletter-issue-thumb" src="' + escapeHtml(issue.thumbnailUrl) + '" alt="">';
+  }
+  const labels = ["AI", "OPS", "DATA", "LABS"];
+  return '<div class="newsletter-issue-thumb newsletter-issue-thumb-fallback" aria-hidden="true"><span>' + labels[index % labels.length] + '</span></div>';
+}
+
+function renderNewsletterPagination(totalPages) {
+  if (totalPages <= 1) return "";
+  return '<div class="newsletter-pagination" aria-label="Newsletter issue pagination">' +
+    '<button type="button" data-page-action="previous" ' + (newsletterIssuesPage === 0 ? "disabled" : "") + '>Previous</button>' +
+    '<span>Page ' + (newsletterIssuesPage + 1) + ' of ' + totalPages + '</span>' +
+    '<button type="button" data-page-action="next" ' + (newsletterIssuesPage >= totalPages - 1 ? "disabled" : "") + '>Next</button>' +
+  '</div>';
+}
+
+function renderNewsletterIssues(issues = [], page = newsletterIssuesPage) {
   if (!newsletterIssueList || !newsletterIssueDetail) return;
   if (!issues.length) {
     newsletterIssueList.innerHTML = '<article class="newsletter-issue-card"><p class="post-kicker">No issues</p><h3>No newsletter issues found.</h3><p>Publish an issue in Beehiiv and it will appear here.</p></article>';
@@ -412,24 +432,41 @@ function renderNewsletterIssues(issues = []) {
     return;
   }
 
-  newsletterIssueList.innerHTML = issues.map((issue, index) =>
-    '<button class="newsletter-issue-card ' + (index === 0 ? "is-active" : "") + '" type="button" data-issue-index="' + index + '">' +
-      '<p class="post-kicker">' + escapeHtml(issue.date || "Recent issue") + '</p>' +
-      '<h3>' + escapeHtml(issue.title || "Untitled issue") + '</h3>' +
-      '<p>' + escapeHtml(issue.summary || "Open this issue to preview the letter.") + '</p>' +
-    '</button>'
-  ).join("");
+  const totalPages = Math.ceil(issues.length / newsletterIssuesPerPage);
+  newsletterIssuesPage = Math.min(Math.max(page, 0), totalPages - 1);
+  const start = newsletterIssuesPage * newsletterIssuesPerPage;
+  const visibleIssues = issues.slice(start, start + newsletterIssuesPerPage);
 
-  newsletterIssueList.querySelectorAll("button").forEach((button) => {
+  newsletterIssueList.innerHTML = visibleIssues.map((issue, index) => {
+    const issueIndex = start + index;
+    return '<button class="newsletter-issue-card ' + (index === 0 ? "is-active" : "") + '" type="button" data-issue-index="' + issueIndex + '">' +
+      newsletterIssueThumbnail(issue, issueIndex) +
+      '<span class="newsletter-issue-card-copy">' +
+        '<span class="post-kicker">' + escapeHtml(issue.date || "Recent issue") + '</span>' +
+        '<span class="newsletter-issue-card-title">' + escapeHtml(issue.title || "Untitled issue") + '</span>' +
+        '<span class="newsletter-issue-card-summary">' + escapeHtml(issue.summary || "Open this issue to preview the letter.") + '</span>' +
+      '</span>' +
+    '</button>';
+  }).join("") + renderNewsletterPagination(totalPages);
+
+  newsletterIssueList.querySelectorAll(".newsletter-issue-card").forEach((button) => {
     button.addEventListener("click", () => {
-      newsletterIssueList.querySelectorAll("button").forEach((item) => item.classList.remove("is-active"));
+      newsletterIssueList.querySelectorAll(".newsletter-issue-card").forEach((item) => item.classList.remove("is-active"));
       button.classList.add("is-active");
       renderNewsletterIssueDetail(newsletterIssuesCache[Number(button.dataset.issueIndex)]);
     });
   });
 
-  renderNewsletterIssueDetail(issues[0]);
+  newsletterIssueList.querySelectorAll("[data-page-action]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const direction = button.dataset.pageAction === "next" ? 1 : -1;
+      renderNewsletterIssues(newsletterIssuesCache, newsletterIssuesPage + direction);
+    });
+  });
+
+  renderNewsletterIssueDetail(visibleIssues[0]);
 }
+
 
 async function loadNewsletterIssues() {
   if (!newsletterIssueList || !newsletterIssueDetail) return;

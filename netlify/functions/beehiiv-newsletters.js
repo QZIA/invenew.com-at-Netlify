@@ -35,6 +35,7 @@ function formatIssue(post) {
     summary,
     date,
     url: post.web_url || "",
+    thumbnailUrl: post.thumbnail_url || "",
     content
   };
 }
@@ -56,7 +57,7 @@ exports.handler = async (event) => {
   }
 
   const url = new URL(`https://api.beehiiv.com/v2/publications/${normalizePublicationId(publicationId)}/posts`);
-  url.searchParams.set("limit", "8");
+  url.searchParams.set("limit", "30");
   url.searchParams.append("expand[]", "free_web_content");
 
   const response = await fetch(url, {
