@@ -376,7 +376,10 @@ function newsletterEndpoint() {
   if (window.location.hostname === "localhost" && window.location.port === "8765") {
     return "http://localhost:8788/beehiiv-newsletters";
   }
-  return "/.netlify/functions/beehiiv-newsletters";
+  if (window.location.hostname.endsWith(".netlify.app")) {
+    return "/.netlify/functions/beehiiv-newsletters";
+  }
+  return "/api/beehiiv-newsletters";
 }
 
 function sanitizeIssueHtml(html = "") {
@@ -477,8 +480,8 @@ async function loadNewsletterIssues() {
     newsletterIssuesCache = Array.isArray(data.issues) ? data.issues : [];
     renderNewsletterIssues(newsletterIssuesCache);
   } catch (error) {
-    newsletterIssueList.innerHTML = '<article class="newsletter-issue-card"><p class="post-kicker">Local setup needed</p><h3>Could not load Beehiiv issues.</h3><p>Run the local Beehiiv proxy or deploy the Netlify function to display recent letters.</p></article>';
-    newsletterIssueDetail.innerHTML = '<p class="post-kicker">Connection issue</p><h3>Recent letters are not available in this local view.</h3><p>The page is ready, but the Beehiiv API must be served through a private backend endpoint so the API key is not exposed.</p>';
+    newsletterIssueList.innerHTML = '<article class="newsletter-issue-card"><p class="post-kicker">Connection issue</p><h3>Could not load Beehiiv issues.</h3><p>Confirm the Beehiiv API key and publication ID are set in the hosting environment.</p></article>';
+    newsletterIssueDetail.innerHTML = '<p class="post-kicker">Connection issue</p><h3>Recent letters are not available right now.</h3><p>The page is ready, but the Beehiiv API must be served through the private backend endpoint so the API key is not exposed.</p>';
   }
 }
 
