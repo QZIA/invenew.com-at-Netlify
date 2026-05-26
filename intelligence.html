@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Intelligence | INVENEW</title>
     <link rel="icon" href="assets/INVENEW-favicon1.png" type="image/png">
-    <link rel="stylesheet" href="styles.css">
+    <script>(function(){try{var theme=localStorage.getItem("invenew-theme");if(!theme&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)theme="dark";if(theme==="dark"){document.documentElement.dataset.theme="dark";document.documentElement.style.backgroundColor="#0d0f12";}}catch(error){}})();</script><link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header class="site-header" data-elevated="false">
@@ -16,25 +16,47 @@
     <div class="mobile-panel" id="mobilePanel" aria-hidden="true"><a href="intelligence.html">Intelligence</a><a href="labs.html">Labs</a><a href="newsletter.html">Newsletter</a><a href="sponsors.html">Sponsors</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
     <div class="search-panel" id="searchPanel" aria-hidden="true"><div class="search-box"><label for="siteSearch">Search INVENEW</label><div class="search-row"><input id="siteSearch" type="search" placeholder="Try AI infrastructure, LLMOps, sponsor briefs..."><button class="btn" id="clearSearch" type="button">Clear</button></div><div class="search-results" id="searchResults"></div></div></div>
     <main>
-      <section class="page-hero section"><p class="eyebrow">Intelligence</p><h1>Market clarity for AI-native infrastructure leaders.</h1><p class="hero-text">INVENEW Intelligence turns vendor noise, technical shifts, and emerging AI-SaaS patterns into sharp research for operators and founders.</p></section>
+      <section class="page-hero section intelligence-hero">
+        <p class="eyebrow">INVENEW Intelligence</p>
+        <h1>Practical intelligence for AI infrastructure and execution.</h1>
+        <p class="hero-text">A weekly briefing and research stream for SaaS founders, CTOs, cloud leaders, AI infrastructure vendors, and enterprise teams moving AI from pilots into production.</p>
+        <div class="hero-actions">
+          <a class="btn" href="newsletter.html">Subscribe to Intelligence</a>
+          <a class="btn btn-secondary" href="sponsors.html">Sponsor Intelligence</a>
+        </div>
+      </section>
+
       <section class="section intelligence-pillars">
-        <article><h3>Executive signal</h3><p>Clear analysis for CIOs, CTOs, COOs, AI leaders, transformation teams, and business executives.</p></article>
-        <article><h3>Vendor-neutral lens</h3><p>Useful for buyers and sponsors without becoming generic vendor marketing.</p></article>
-        <article><h3>Execution focus</h3><p>Governance, security, infrastructure, operating models, adoption, ROI, and scale.</p></article>
+        <article><h3>Who it is for</h3><p>SaaS founders, CTOs, cloud and DevOps leaders, data teams, AI vendors, and enterprise AI operators.</p></article>
+        <article><h3>What it helps with</h3><p>Understanding infrastructure choices, vendor categories, reliability risks, cost tradeoffs, governance, and adoption patterns.</p></article>
+        <article><h3>How it is written</h3><p>Plain-language analysis with enough technical depth for operators and enough context for executives.</p></article>
+      </section>
+
+      <section class="section intelligence-offer">
+        <div class="section-head">
+          <p class="eyebrow">What readers get</p>
+          <h2>A simple way to keep up with the AI execution layer.</h2>
+        </div>
+        <div class="home-card-grid four">
+          <article class="beige"><h3>Weekly briefing</h3><p>One clear read on what changed, why it matters, and what leaders should watch next.</p></article>
+          <article class="blue"><h3>Vendor-neutral analysis</h3><p>Category explainers, buyer context, and market maps without turning into vendor copy.</p></article>
+          <article class="green"><h3>Infrastructure radar</h3><p>Coverage of agents, LLMOps, inference, observability, cloud, security, data, and developer platforms.</p></article>
+          <article class="pink"><h3>Lab-backed notes</h3><p>Lessons from experiments, prototypes, and practical workflow research.</p></article>
+        </div>
       </section>
 
       <section class="latest-intelligence">
         <div class="latest-inner">
           <div class="section-title-row">
             <h2>Latest intelligence.</h2>
-            <p>Signature formats designed to turn noise into practical decisions.</p>
+            <p>Examples of the kind of practical research INVENEW Intelligence publishes.</p>
           </div>
           <div class="latest-grid">
             <article class="flagship-brief">
               <span class="pill">Flagship report</span>
               <h3>The Production AI Stack: from prototype to reliable system</h3>
               <p>A field guide to infrastructure, evals, orchestration, security, and application patterns teams need before AI products can scale beyond demos.</p>
-              <a class="btn btn-secondary" href="newsletter.html">Read the brief</a>
+              <a class="btn btn-secondary" href="newsletter.html">Subscribe for the briefing</a>
             </article>
             <div class="brief-list">
               <article><span>Agent Watch • 8 min read</span><h3>Agents are not magic employees. They are systems.</h3><p>Why winners design workflows, evals, permissions, and fallback paths before chasing autonomy.</p></article>
@@ -43,9 +65,9 @@
             </div>
           </div>
           <div class="asset-grid">
-            <article><span>01 / Databases</span><h3>AI Stack Directory</h3><p>A living database of infrastructure vendors, agent frameworks, app platforms, open-source tools, and enterprise AI products.</p></article>
-            <article><span>02 / Comparisons</span><h3>Buyer Guides</h3><p>Independent comparisons of vector databases, observability tools, inference providers, agent frameworks, and LLM gateways.</p></article>
-            <article><span>03 / Community</span><h3>Builder Network</h3><p>Private roundtables, architecture reviews, demo days, and technical conversations for people deploying AI systems.</p></article>
+            <article><span>01 / Databases</span><h3>AI Stack Directory</h3><p>A living map of infrastructure vendors, agent frameworks, app platforms, open-source tools, and enterprise AI products.</p></article>
+            <article><span>02 / Comparisons</span><h3>Buyer Guides</h3><p>Independent comparisons of databases, observability tools, inference providers, agent frameworks, and LLM gateways.</p></article>
+            <article><span>03 / Community</span><h3>Builder Network</h3><p>Private roundtables, architecture reviews, demo days, and practical conversations for people deploying AI systems.</p></article>
           </div>
         </div>
       </section>
@@ -64,13 +86,47 @@
 
       <section class="section editorial-promise">
         <div>
-          <h2>The weekly editorial promise.</h2>
+          <h2>What makes it different.</h2>
           <p>Every issue should help leaders answer four questions: What changed? Why does it matter? What should we do? Which vendors, risks, or categories deserve attention?</p>
         </div>
         <aside>
           <h3>INVENEW lens</h3>
-          <p>Not AI news. Not tutorials. Executive intelligence for enterprise AI execution.</p>
+          <p>Not daily AI news. Not tutorials. Not vendor marketing. Practical intelligence for people responsible for real AI systems.</p>
         </aside>
+      </section>
+
+      <section class="section intelligence-credibility">
+        <div class="section-title-row">
+          <h2>Why this point of view is credible.</h2>
+          <p>INVENEW is built from operating experience and existing technical distribution.</p>
+        </div>
+        <div class="credibility-grid">
+          <article><strong>25+ years</strong><span>Cloud infrastructure, DevOps, DataOps, and SaaS operations experience.</span></article>
+          <article><strong>45K+</strong><span>LinkedIn followers reached through practical technical and AI execution commentary.</span></article>
+          <article><strong>2.5M+</strong><span>Member reach through large technology-focused LinkedIn groups owned by the founder.</span></article>
+          <article><strong>5K+</strong><span>Newsletter subscribers</span></article>
+        </div>
+      </section>
+
+      <section class="intelligence-sponsor-band">
+        <div class="problem-inner">
+          <div>
+            <p class="eyebrow">For sponsors</p>
+            <h2>Reach people already thinking about AI infrastructure decisions.</h2>
+          </div>
+          <p>INVENEW Intelligence gives AI, cloud, DevOps, observability, data, and security vendors a focused way to reach builders and buyers through newsletter placements, research briefs, vendor spotlights, and LinkedIn amplification.</p>
+        </div>
+      </section>
+
+      <section class="section landing-cta intelligence-final-cta">
+        <div>
+          <p class="eyebrow">Start here</p>
+          <h2>Read the weekly briefing or sponsor INVENEW Intelligence.</h2>
+        </div>
+        <div class="cta-actions">
+          <a class="btn" href="newsletter.html">Subscribe</a>
+          <a class="btn" href="sponsors.html">Sponsor</a>
+        </div>
       </section>
     </main>
     <footer class="footer">

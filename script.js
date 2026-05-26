@@ -24,6 +24,7 @@ const searchable = [
 
 function setTheme(theme) {
   root.dataset.theme = theme;
+  root.style.backgroundColor = theme === "dark" ? "#0d0f12" : "#fbfaf8";
   localStorage.setItem("invenew-theme", theme);
 }
 
@@ -93,9 +94,236 @@ if (signupForm) {
 }
 
 if (sponsorForm) {
-  sponsorForm.addEventListener("submit", (event) => {
+  sponsorForm.addEventListener("submit", async (event) => {
     event.preventDefault();
-    sponsorNote.textContent = "Inquiry captured for demo. Connect this form to your CRM or form backend in production.";
-    sponsorForm.reset();
+    const formData = new FormData(sponsorForm);
+    const encoded = new URLSearchParams(formData).toString();
+
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: encoded
+      });
+
+      if (!response.ok) throw new Error("Submission failed");
+      sponsorNote.textContent = "Thanks. We received your inquiry and will follow up soon.";
+      sponsorForm.reset();
+    } catch (error) {
+      sponsorNote.textContent = "Something went wrong. Please try again in a moment.";
+    }
   });
 }
+
+// Sanity blog integration
+const sanityConfig = {
+  projectId: "kjneu2g3",
+  dataset: "production",
+  apiVersion: "2026-05-25"
+};
+
+const sanityPosts = document.getElementById("sanityPosts");
+const blogCategoryFilter = document.getElementById("blogCategoryFilter");
+let sanityBlogPostsCache = [];
+
+function escapeHtml(value = "") {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function sanityImageUrl(ref, width = 900) {
+  if (!ref) return "";
+  const match = ref.match(/^image-([a-f0-9]+)-(\d+)x(\d+)-(\w+)$/);
+  if (!match) return "";
+  const [, id, sourceWidth, sourceHeight, format] = match;
+  const height = Math.round((Number(sourceHeight) / Number(sourceWidth)) * width);
+  return `https://cdn.sanity.io/images/${sanityConfig.projectId}/${sanityConfig.dataset}/${id}-${sourceWidth}x${sourceHeight}.${format}?w=${width}&h=${height}&fit=crop&auto=format`;
+}
+
+function plainTextFromBlocks(blocks = []) {
+  return blocks
+    .filter((block) => block && block._type === "block")
+    .map((block) => (block.children || []).map((child) => child.text || "").join(""))
+    .join(" ")
+    .trim();
+}
+
+function formatPostDate(value) {
+  if (!value) return "Recently published";
+  return new Intl.DateTimeFormat("en", { month: "long", year: "numeric" }).format(new Date(value));
+}
+
+function fallbackPostVisual(index = 0) {
+  const variants = ["brain", "signal", "systems"];
+  const variant = variants[index % variants.length];
+  return `<div class="post-art post-art-${variant}" aria-hidden="true">
+    <span class="orb-one"></span><span class="orb-two"></span><span class="line-one"></span><span class="line-two"></span><span class="chip"></span>
+  </div>`;
+}
+
+
+
+function renderBlogCategoryFilter(posts = []) {
+  if (!blogCategoryFilter) return;
+  const categories = [...new Set(posts.map((post) => post.category).filter(Boolean))].sort((a, b) => a.localeCompare(b));
+  blogCategoryFilter.innerHTML = [
+    `<button type="button" class="active" data-category="all">All</button>`,
+    ...categories.map((category) => `<button type="button" data-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`)
+  ].join("");
+
+  blogCategoryFilter.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => {
+      blogCategoryFilter.querySelectorAll("button").forEach((item) => item.classList.remove("active"));
+      button.classList.add("active");
+      renderSanityPostList(button.dataset.category || "all");
+    });
+  });
+}
+
+function renderSanityPostList(category = "all") {
+  if (!sanityPosts) return;
+  const posts = category === "all"
+    ? sanityBlogPostsCache
+    : sanityBlogPostsCache.filter((post) => post.category === category);
+
+  if (!posts.length) {
+    sanityPosts.innerHTML = `<article class="post-card"><p class="post-meta">No posts yet</p><h2>No articles in this category yet.</h2><p>Publish a post in this category in Sanity and it will appear here.</p></article>`;
+    return;
+  }
+
+  const [featuredPost, ...remainingPosts] = posts;
+  const renderCard = (post, index) => {
+    const excerptLimit = 135;
+    const excerpt = plainTextFromBlocks(post.body || []).slice(0, excerptLimit) || "Published from INVENEW Blog in Sanity.";
+    const image = sanityImageUrl(post.imageRef, 760);
+    const categoryName = (post.category || "INVENEW").toUpperCase();
+    return `<article class="post-card">
+      ${image ? `<img class="post-image" src="${image}" alt="">` : fallbackPostVisual(index + 1)}
+      <div class="post-card-content">
+        <p class="post-kicker">${escapeHtml(categoryName)}</p>
+        <h2>${escapeHtml(post.title || "Untitled article")}</h2>
+        <span class="post-rule"></span>
+        <p class="post-excerpt">${escapeHtml(excerpt)}${excerpt.length >= excerptLimit ? "..." : ""}</p>
+        <div class="post-byline"><span>By INVENEW</span><i></i><span>${escapeHtml(formatPostDate(post.publishedAt))}</span></div>
+        <a class="post-link" href="blog.html?slug=${encodeURIComponent(post.slug || "")}" aria-label="Read ${escapeHtml(post.title || "article")}"></a>
+      </div>
+    </article>`;
+  };
+
+  const featuredExcerptLimit = 285;
+  const featuredExcerpt = plainTextFromBlocks(featuredPost.body || []).slice(0, featuredExcerptLimit) || "Published from INVENEW Blog in Sanity.";
+  const featuredImage = sanityImageUrl(featuredPost.imageRef, 1300);
+  const featuredCategory = (featuredPost.category || "INVENEW").toUpperCase();
+  const remainingGrid = remainingPosts.length
+    ? `<div class="blog-grid-head"><h2>More articles</h2><p>Published from INVENEW Blog in Sanity.</p></div><div class="blog-grid">${remainingPosts.map((post, index) => renderCard(post, index)).join("")}</div>`
+    : `<div class="blog-grid-head"><h2>More articles</h2><p>Publish more posts in Sanity and they will appear here.</p></div>`;
+
+  sanityPosts.innerHTML = `<article class="featured-article-card">
+    <div class="featured-article-copy">
+      <p class="post-kicker">${escapeHtml(featuredCategory)}</p>
+      <h2>${escapeHtml(featuredPost.title || "Untitled article")}</h2>
+      <p>${escapeHtml(featuredExcerpt)}${featuredExcerpt.length >= featuredExcerptLimit ? "..." : ""}</p>
+      <div class="post-byline"><span>By INVENEW</span><i></i><span>${escapeHtml(formatPostDate(featuredPost.publishedAt))}</span></div>
+    </div>
+    ${featuredImage ? `<img class="featured-article-image" src="${featuredImage}" alt="">` : fallbackPostVisual(0)}
+    <a class="post-link" href="blog.html?slug=${encodeURIComponent(featuredPost.slug || "")}" aria-label="Read ${escapeHtml(featuredPost.title || "article")}"></a>
+  </article>${remainingGrid}`;
+}
+
+function renderPortableText(blocks = []) {
+  if (!blocks.length) return "<p>This article is published in Sanity, but no body content was provided yet.</p>";
+
+  return blocks.map((block) => {
+    if (block._type === "image") {
+      const src = sanityImageUrl(block.asset?._ref, 1200);
+      return src ? `<img class="article-image" src="${src}" alt="">` : "";
+    }
+
+    if (block._type !== "block") return "";
+
+    const children = (block.children || []).map((child) => {
+      let text = escapeHtml(child.text || "");
+      const marks = child.marks || [];
+      if (marks.includes("strong")) text = `<strong>${text}</strong>`;
+      if (marks.includes("em")) text = `<em>${text}</em>`;
+      return text;
+    }).join("");
+
+    if (block.listItem === "bullet") return `<li>${children}</li>`;
+    if (block.style === "h2") return `<h2>${children}</h2>`;
+    if (block.style === "h3") return `<h3>${children}</h3>`;
+    if (block.style === "blockquote") return `<blockquote>${children}</blockquote>`;
+    return `<p>${children}</p>`;
+  }).join("");
+}
+
+async function sanityFetch(query) {
+  const endpoint = `https://${sanityConfig.projectId}.api.sanity.io/v${sanityConfig.apiVersion}/data/query/${sanityConfig.dataset}?query=${encodeURIComponent(query)}`;
+  const response = await fetch(endpoint);
+  if (!response.ok) throw new Error("Sanity request failed");
+  const data = await response.json();
+  return data.result || [];
+}
+
+async function loadSanityBlog() {
+  if (!sanityPosts) return;
+  const params = new URLSearchParams(window.location.search);
+  const slug = params.get("slug");
+
+  try {
+    if (slug) {
+      const query = `*[_type == "post" && slug.current == "${slug}"][0]{
+        title,
+        publishedAt,
+        body,
+        "category": categories[0]->title,
+        "imageRef": mainImage.asset._ref
+      }`;
+      const post = await sanityFetch(query);
+
+      if (!post || !post.title) {
+        sanityPosts.innerHTML = `<article class="post-card"><p class="post-meta">Not found</p><h2>Article not found.</h2><p>The post may have moved or is not published yet.</p><a class="btn btn-secondary" href="blog.html">Back to Blog</a></article>`;
+        return;
+      }
+
+      document.title = `${post.title} | INVENEW`;
+      const image = sanityImageUrl(post.imageRef, 1200);
+      sanityPosts.classList.add("article-featured");
+      sanityPosts.innerHTML = `<article class="article-page-card">
+        <a class="back-link" href="blog.html">Back to Blog</a>
+        ${image ? `<img class="article-hero-image" src="${image}" alt="">` : ""}
+        <p class="post-meta">${escapeHtml(formatPostDate(post.publishedAt))} • ${escapeHtml(post.category || "INVENEW")}</p>
+        <h1>${escapeHtml(post.title)}</h1>
+        <div class="article-body">${renderPortableText(post.body || [])}</div>
+      </article>`;
+      return;
+    }
+
+    const query = `*[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc)[0...12]{
+      title,
+      "slug": slug.current,
+      publishedAt,
+      body,
+      "category": categories[0]->title,
+      "imageRef": mainImage.asset._ref
+    }`;
+    const posts = await sanityFetch(query);
+
+    if (!posts.length) {
+      sanityPosts.innerHTML = `<article class="post-card"><p class="post-meta">No posts yet</p><h2>Published posts will appear here.</h2><p>Create and publish posts in Sanity Studio to populate this section.</p></article>`;
+      return;
+    }
+
+    sanityBlogPostsCache = posts;
+    renderBlogCategoryFilter(posts);
+    renderSanityPostList("all");
+  } catch (error) {
+    sanityPosts.innerHTML = `<article class="post-card"><p class="post-meta">Connection issue</p><h2>Could not load posts from Sanity.</h2><p>Check the Sanity dataset, CORS origin, and published post status.</p></article>`;
+  }
+}
+
+loadSanityBlog();

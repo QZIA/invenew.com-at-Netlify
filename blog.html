@@ -1,33 +1,32 @@
 <!doctype html>
 <html lang="en">
-  <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Blog | INVENEW</title><link rel="icon" href="assets/INVENEW-favicon1.png" type="image/png"><link rel="stylesheet" href="styles.css"></head>
+  <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Blog | INVENEW</title><meta name="description" content="Founder notes from INVENEW on AI-native infrastructure, SaaS operations, cloud, DevOps, DataOps, observability, governance, and practical AI execution."><link rel="icon" href="assets/INVENEW-favicon1.png" type="image/png"><script>(function(){try{var theme=localStorage.getItem("invenew-theme");if(!theme&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches)theme="dark";if(theme==="dark"){document.documentElement.dataset.theme="dark";document.documentElement.style.backgroundColor="#0d0f12";}}catch(error){}})();</script><link rel="stylesheet" href="styles.css"></head>
   <body>
     <header class="site-header" data-elevated="false"><a class="brand" href="index.html"><img class="brand-logo logo-light" src="assets/INVENEW-light-long1.png" alt="INVENEW"><img class="brand-logo logo-dark" src="assets/INVENEW-dark-long1.png" alt="INVENEW"></a><nav class="nav" aria-label="Primary navigation"><a href="intelligence.html">Intelligence</a><a href="labs.html">Labs</a><a href="newsletter.html">Newsletter</a><a href="sponsors.html">Sponsors</a><a href="blog.html">Blog</a><a href="about.html">About</a></nav><div class="header-actions"><button class="icon-btn" id="searchToggle" aria-label="Search site" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z"/></svg></button><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" type="button"><span class="toggle-track"><span class="toggle-thumb"></span></span><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4V2m0 20v-2m8-8h2M2 12h2m14.36-6.36 1.42-1.42M4.22 19.78l1.42-1.42m0-12.72L4.22 4.22m15.56 15.56-1.42-1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5 8.5 8.5 0 1 0 20.5 14.5Z"/></svg></button><a class="btn btn-small" href="newsletter.html">Subscribe</a><button class="icon-btn menu-btn" id="menuToggle" aria-label="Open menu" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></header>
     <div class="mobile-panel" id="mobilePanel" aria-hidden="true"><a href="intelligence.html">Intelligence</a><a href="labs.html">Labs</a><a href="newsletter.html">Newsletter</a><a href="sponsors.html">Sponsors</a><a href="blog.html">Blog</a><a href="about.html">About</a></div>
     <div class="search-panel" id="searchPanel" aria-hidden="true"><div class="search-box"><label for="siteSearch">Search INVENEW</label><div class="search-row"><input id="siteSearch" type="search" placeholder="Try AI infrastructure, LLMOps, sponsor briefs..."><button class="btn" id="clearSearch" type="button">Clear</button></div><div class="search-results" id="searchResults"></div></div></div>
     <main>
-      <section class="page-hero section"><p class="eyebrow">Blog</p><h1>Essays, field notes, and category analysis.</h1><p class="hero-text">Founder-led writing on AI-native infrastructure, AI-SaaS operations, DevOps evolution, data workflows, and technical market shifts.</p></section>
-      <section class="section blog-featured">
-        <article class="post-card">
-          <div class="post-visual visual-one"><span></span></div>
-          <p class="post-meta">May 2026 • AI Infrastructure</p>
-          <h2>The real AI stack for regulated firms</h2>
-          <p>Think in layers: data, controls, models, and operations.</p>
-          <a class="btn btn-secondary" href="newsletter.html">Read post</a>
-        </article>
-        <article class="post-card">
-          <div class="post-visual visual-two"><span></span></div>
-          <p class="post-meta">May 2026 • Strategy</p>
-          <h2>Why enterprise AI needs operations, not hype</h2>
-          <p>Operating models decide whether AI scales.</p>
-          <a class="btn btn-secondary" href="newsletter.html">Read post</a>
-        </article>
-        <article class="post-card">
-          <div class="post-visual visual-three"><span></span></div>
-          <p class="post-meta">May 2026 • FinTech</p>
-          <h2>What FinTech leaders should watch next</h2>
-          <p>Five signals worth tracking now.</p>
-          <a class="btn btn-secondary" href="newsletter.html">Read post</a>
+      <section class="section blog-section-head">
+        <div class="section-title-row">
+          <div>
+            <p class="eyebrow">Blog</p>
+            <h1>Latest writing</h1>
+          </div>
+          <p>Practical notes for AI-native infrastructure, SaaS operations, cloud, DataOps, observability, governance, and execution.</p>
+        </div>
+        <div class="blog-category-filter" id="blogCategoryFilter" aria-label="Filter blog posts by category">
+          <button type="button" class="active" data-category="all">All</button>
+        </div>
+      </section>
+
+      <section class="section blog-featured" id="sanityPosts" aria-live="polite">
+        <article class="featured-article-card">
+          <div class="featured-article-copy">
+            <p class="post-kicker">Loading</p>
+            <h2>Loading latest article...</h2>
+            <p>Pulling published posts from INVENEW Blog in Sanity.</p>
+          </div>
+          <div class="post-art post-art-brain" aria-hidden="true"><span class="orb-one"></span><span class="orb-two"></span><span class="line-one"></span><span class="line-two"></span><span class="chip"></span></div>
         </article>
       </section>
 
@@ -35,17 +34,18 @@
         <div class="topics-inner">
           <div class="section-title-row">
             <h2>Topics</h2>
-            <p>Four editorial lanes keep the signal focused.</p>
+            <p>Editorial lanes keep the signal focused.</p>
           </div>
           <div class="topic-grid">
-            <article><h3>Infrastructure</h3><p>Compute, data, observability, and cost.</p></article>
-            <article><h3>FinTech</h3><p>Payments, banking, wealth, and risk.</p></article>
-            <article><h3>Governance</h3><p>Controls, policies, and accountability.</p></article>
-            <article><h3>Strategy</h3><p>What leaders should do next.</p></article>
+            <article><h3>AI Infrastructure</h3><p>Compute, data, models, orchestration, observability, and cost.</p></article>
+            <article><h3>SaaS Operations</h3><p>Reliability, support, workflow, cloud operations, and operating models.</p></article>
+            <article><h3>DataOps and Observability</h3><p>Data quality, pipelines, signals, monitoring, and production feedback.</p></article>
+            <article><h3>Governance and Risk</h3><p>Controls, permissions, security, policy, and accountability.</p></article>
           </div>
         </div>
       </section>
     </main>
+
     <footer class="footer">
       <div class="footer-main">
         <div class="footer-intro">

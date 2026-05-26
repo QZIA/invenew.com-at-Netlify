@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-labelledby="title desc">
+  <title id="title">AI infrastructure stack graphic</title>
+  <desc id="desc">A clean AI infrastructure diagram showing data, orchestration, model runtime, observability, security, and deployment layers.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="26" stdDeviation="32" flood-color="#1f2937" flood-opacity=".13"/>
+    </filter>
+    <linearGradient id="panel" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#eff6f5"/>
+    </linearGradient>
+    <linearGradient id="flow" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#275980"/>
+      <stop offset=".5" stop-color="#5877af"/>
+      <stop offset="1" stop-color="#2f8a7c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1800" height="1200" fill="#fbfaf8"/>
+  <circle cx="1450" cy="210" r="230" fill="#e4edfc"/>
+  <circle cx="265" cy="995" r="275" fill="#faf3ec"/>
+  <circle cx="1430" cy="990" r="250" fill="#fcebeb"/>
+  <g filter="url(#shadow)">
+    <rect x="165" y="145" width="1470" height="910" rx="26" fill="url(#panel)" stroke="#e3e3e0" stroke-width="3"/>
+  </g>
+  <g stroke="#d8dedc" stroke-width="2">
+    <path d="M310 290h1180M310 450h1180M310 610h1180M310 770h1180"/>
+    <path d="M510 230v600M735 230v600M960 230v600M1185 230v600M1410 230v600"/>
+  </g>
+  <g>
+    <rect x="270" y="230" width="290" height="120" rx="14" fill="#faf3ec" stroke="#e9cab8" stroke-width="2"/>
+    <rect x="620" y="230" width="290" height="120" rx="14" fill="#e4edfc" stroke="#96b1e1" stroke-width="2"/>
+    <rect x="970" y="230" width="290" height="120" rx="14" fill="#eff6f5" stroke="#97cfc2" stroke-width="2"/>
+    <rect x="1320" y="230" width="150" height="120" rx="14" fill="#fcebeb" stroke="#fcdbdb" stroke-width="2"/>
+  </g>
+  <g fill="#141414" font-family="Inter, Arial, sans-serif" font-weight="850">
+    <text x="310" y="300" font-size="34">Data</text>
+    <text x="660" y="300" font-size="34">Orchestration</text>
+    <text x="1010" y="300" font-size="34">Model Runtime</text>
+    <text x="1360" y="300" font-size="34">Trust</text>
+  </g>
+  <g fill="#5f646d" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="650">
+    <text x="310" y="328">pipelines</text>
+    <text x="660" y="328">agents</text>
+    <text x="1010" y="328">inference</text>
+    <text x="1360" y="328">policy</text>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M415 515c130-90 255-95 375-20s250 82 390-10 225-85 315-15" stroke="url(#flow)" stroke-width="18"/>
+    <path d="M415 515c130-90 255-95 375-20s250 82 390-10 225-85 315-15" stroke="#ffffff" stroke-width="5" opacity=".62"/>
+  </g>
+  <g>
+    <circle cx="415" cy="515" r="28" fill="#275980"/>
+    <circle cx="650" cy="458" r="28" fill="#96b1e1"/>
+    <circle cx="900" cy="535" r="28" fill="#2f8a7c"/>
+    <circle cx="1180" cy="485" r="28" fill="#e9cab8"/>
+    <circle cx="1495" cy="470" r="28" fill="#141414"/>
+  </g>
+  <g filter="url(#shadow)">
+    <rect x="275" y="705" width="1190" height="180" rx="18" fill="#ffffff" stroke="#e3e3e0" stroke-width="2"/>
+  </g>
+  <g stroke="#d8dedc" stroke-width="2">
+    <path d="M535 730v130M770 730v130M1010 730v130M1245 730v130"/>
+  </g>
+  <g fill="#141414" font-family="Inter, Arial, sans-serif" font-size="31" font-weight="850">
+    <text x="325" y="780">Cloud</text>
+    <text x="575" y="780">DataOps</text>
+    <text x="810" y="780">LLMOps</text>
+    <text x="1050" y="780">Observability</text>
+    <text x="1290" y="780">Security</text>
+  </g>
+  <g fill="#5f646d" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="650">
+    <text x="325" y="820">compute</text>
+    <text x="575" y="820">quality</text>
+    <text x="810" y="820">evals</text>
+    <text x="1050" y="820">signals</text>
+    <text x="1290" y="820">controls</text>
+  </g>
+  <rect x="1515" y="700" width="70" height="185" rx="35" fill="#141414"/>
+  <rect x="1540" y="750" width="20" height="85" rx="10" fill="#ffffff"/>
+</svg>
