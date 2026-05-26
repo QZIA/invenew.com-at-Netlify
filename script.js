@@ -301,9 +301,8 @@ window.addEventListener("beforeunload", () => {
   if ("speechSynthesis" in window) window.speechSynthesis.cancel();
 });
 
-async function sanityFetch(query) {
-  const endpoint = `https://${sanityConfig.projectId}.api.sanity.io/v${sanityConfig.apiVersion}/data/query/${sanityConfig.dataset}?query=${encodeURIComponent(query)}`;
-  const response = await fetch(endpoint);
+async function sanityFetch() {
+  const response = await fetch("/api/sanity-posts");
   if (!response.ok) throw new Error("Sanity request failed");
   const data = await response.json();
   return data.result || [];
@@ -316,14 +315,9 @@ async function loadSanityBlog() {
 
   try {
     if (slug) {
-      const query = `*[_type == "post" && slug.current == "${slug}"][0]{
-        title,
-        publishedAt,
-        body,
-        "category": categories[0]->title,
-        "imageRef": mainImage.asset._ref
-      }`;
-      const post = await sanityFetch(query);
+      const response = await fetch(`/api/sanity-posts?slug=${encodeURIComponent(slug)}`);
+      if (!response.ok) throw new Error("Sanity request failed");
+      const { result: post } = await response.json();
 
       if (!post || !post.title) {
         sanityPosts.innerHTML = `<article class="post-card"><p class="post-meta">Not found</p><h2>Article not found.</h2><p>The post may have moved or is not published yet.</p><a class="btn btn-secondary" href="blog.html">Back to Blog</a></article>`;
@@ -345,15 +339,7 @@ async function loadSanityBlog() {
       return;
     }
 
-    const query = `*[_type == "post"] | order(coalesce(publishedAt, _createdAt) desc)[0...12]{
-      title,
-      "slug": slug.current,
-      publishedAt,
-      body,
-      "category": categories[0]->title,
-      "imageRef": mainImage.asset._ref
-    }`;
-    const posts = await sanityFetch(query);
+    const posts = await sanityFetch();
 
     if (!posts.length) {
       sanityPosts.innerHTML = `<article class="post-card"><p class="post-meta">No posts yet</p><h2>Published posts will appear here.</h2><p>Create and publish posts in Sanity Studio to populate this section.</p></article>`;
