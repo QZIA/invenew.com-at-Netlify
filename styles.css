@@ -3261,11 +3261,13 @@ select:focus { border-color: var(--accent); }
   width: min(100%, 720px);
   max-width: 100%;
   min-width: 0;
-  min-height: 190px;
+  min-height: 0;
   margin-top: clamp(28px, 4vw, 42px);
-  padding: clamp(18px, 2.4vw, 28px);
+  padding: 0;
+  border: 0;
+  background: transparent;
   overflow: hidden;
-  box-shadow: 0 18px 48px rgba(31, 41, 55, 0.08);
+  box-shadow: none;
 }
 
 .beehiiv-card h2 {
@@ -3278,10 +3280,18 @@ select:focus { border-color: var(--accent); }
   min-height: 150px;
   margin-left: 0;
   margin-right: auto;
+  border-radius: 8px;
+  background: var(--green);
 }
 
 .beehiiv-card * {
   max-width: 100% !important;
+}
+
+.beehiiv-card > div {
+  background: var(--green) !important;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .landing-position {
