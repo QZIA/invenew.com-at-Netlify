@@ -3229,21 +3229,27 @@ select:focus { border-color: var(--accent); }
 .subscribe-hero {
   display: grid;
   grid-template-columns: 1fr;
+  justify-items: start;
   align-items: start;
   gap: clamp(22px, 3.2vw, 36px);
-  max-width: 1080px;
+  width: min(100%, 1280px);
+  max-width: 1280px;
 }
 
 .subscribe-hero-copy {
-  max-width: 880px;
+  width: min(100%, 880px);
+  min-width: 0;
 }
 
 .beehiiv-card {
   justify-self: start;
   width: min(100%, 720px);
+  max-width: 100%;
+  min-width: 0;
   min-height: 190px;
   margin-top: clamp(28px, 4vw, 42px);
   padding: clamp(18px, 2.4vw, 28px);
+  overflow: hidden;
   box-shadow: 0 18px 48px rgba(31, 41, 55, 0.08);
 }
 
@@ -3253,9 +3259,14 @@ select:focus { border-color: var(--accent); }
 
 .beehiiv-card iframe {
   width: min(100%, 660px) !important;
+  max-width: 100% !important;
   min-height: 150px;
   margin-left: 0;
   margin-right: auto;
+}
+
+.beehiiv-card * {
+  max-width: 100% !important;
 }
 
 .sponsor-hero {
@@ -3300,6 +3311,14 @@ select:focus { border-color: var(--accent); }
   :is(.page-hero, .labs-hero, .subscribe-hero, .sponsor-hero, .about-meaning, .blog-section-head) {
     padding-top: 34px;
     padding-bottom: 36px;
+  }
+
+  .subscribe-hero,
+  .subscribe-hero-copy,
+  .beehiiv-card {
+    justify-self: start;
+    width: 100%;
+    max-width: calc(100vw - 32px);
   }
 
   :is(.page-hero, .labs-hero, .subscribe-hero, .sponsor-hero, .about-meaning, .blog-section-head) h1,
