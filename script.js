@@ -442,9 +442,8 @@ function renderNewsletterIssues(issues = [], page = newsletterIssuesPage) {
     return '<button class="newsletter-issue-card ' + (index === 0 ? "is-active" : "") + '" type="button" data-issue-index="' + issueIndex + '">' +
       newsletterIssueThumbnail(issue, issueIndex) +
       '<span class="newsletter-issue-card-copy">' +
-        '<span class="post-kicker">' + escapeHtml(issue.date || "Recent issue") + '</span>' +
         '<span class="newsletter-issue-card-title">' + escapeHtml(issue.title || "Untitled issue") + '</span>' +
-        '<span class="newsletter-issue-card-summary">' + escapeHtml(issue.summary || "Open this issue to preview the letter.") + '</span>' +
+        '<span class="post-kicker">' + escapeHtml(issue.date || "Recent issue") + '</span>' +
       '</span>' +
     '</button>';
   }).join("") + renderNewsletterPagination(totalPages);

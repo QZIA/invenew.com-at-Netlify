@@ -34,6 +34,7 @@ function formatIssue(post) {
     title: post.title || post.subject_line || "Untitled issue",
     summary,
     date,
+    sortDate: normalizedDate ? new Date(normalizedDate).getTime() : 0,
     url: post.web_url || "",
     thumbnailUrl: post.thumbnail_url || "",
     content
@@ -76,7 +77,9 @@ exports.handler = async (event) => {
   }
 
   const payload = await response.json();
-  const issues = Array.isArray(payload.data) ? payload.data.map(formatIssue) : [];
+  const issues = Array.isArray(payload.data)
+    ? payload.data.map(formatIssue).sort((a, b) => b.sortDate - a.sortDate)
+    : [];
 
   return {
     statusCode: 200,
