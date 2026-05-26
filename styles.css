@@ -3241,6 +3241,21 @@ select:focus { border-color: var(--accent); }
   min-width: 0;
 }
 
+.subscribe-hero .eyebrow {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 850 !important;
+}
+
+.subscribe-hero h1 {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 900 !important;
+}
+
+.subscribe-hero .hero-text {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-weight: 500 !important;
+}
+
 .beehiiv-card {
   justify-self: start;
   width: min(100%, 720px);
