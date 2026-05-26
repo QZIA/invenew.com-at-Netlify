@@ -2375,6 +2375,34 @@ select:focus { border-color: var(--accent); }
   margin: 20px 0 30px;
 }
 
+.article-tools {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: -8px 0 28px;
+}
+
+.article-voice-btn {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--text);
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  cursor: pointer;
+  font-weight: 850;
+}
+
+.article-voice-btn[data-state="playing"] {
+  background: transparent;
+  color: var(--text);
+}
+
+.article-voice-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .article-body {
   color: var(--muted);
   font-size: 1.12rem;

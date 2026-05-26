@@ -261,6 +261,46 @@ function renderPortableText(blocks = []) {
   }).join("");
 }
 
+let articleSpeech = null;
+
+function initArticleVoice(text = "") {
+  const button = document.getElementById("articleVoiceButton");
+  if (!button) return;
+
+  if (!("speechSynthesis" in window) || !text.trim()) {
+    button.disabled = true;
+    button.textContent = "Audio unavailable";
+    return;
+  }
+
+  const resetButton = () => {
+    button.dataset.state = "idle";
+    button.textContent = "Listen to article";
+  };
+
+  button.addEventListener("click", () => {
+    if (button.dataset.state === "playing") {
+      window.speechSynthesis.cancel();
+      resetButton();
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    articleSpeech = new SpeechSynthesisUtterance(text);
+    articleSpeech.rate = 0.96;
+    articleSpeech.pitch = 1;
+    articleSpeech.onend = resetButton;
+    articleSpeech.onerror = resetButton;
+    button.dataset.state = "playing";
+    button.textContent = "Stop audio";
+    window.speechSynthesis.speak(articleSpeech);
+  });
+}
+
+window.addEventListener("beforeunload", () => {
+  if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+});
+
 async function sanityFetch(query) {
   const endpoint = `https://${sanityConfig.projectId}.api.sanity.io/v${sanityConfig.apiVersion}/data/query/${sanityConfig.dataset}?query=${encodeURIComponent(query)}`;
   const response = await fetch(endpoint);
@@ -298,8 +338,10 @@ async function loadSanityBlog() {
         ${image ? `<img class="article-hero-image" src="${image}" alt="">` : ""}
         <p class="post-meta">${escapeHtml(formatPostDate(post.publishedAt))} • ${escapeHtml(post.category || "INVENEW")}</p>
         <h1>${escapeHtml(post.title)}</h1>
+        <div class="article-tools"><button class="article-voice-btn" id="articleVoiceButton" type="button" data-state="idle" aria-label="Listen to article">Listen to article</button></div>
         <div class="article-body">${renderPortableText(post.body || [])}</div>
       </article>`;
+      initArticleVoice([post.title, plainTextFromBlocks(post.body || [])].filter(Boolean).join(". "));
       return;
     }
 
