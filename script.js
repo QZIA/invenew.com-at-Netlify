@@ -368,4 +368,84 @@ async function loadSanityBlog() {
   }
 }
 
+const newsletterIssueList = document.getElementById("newsletterIssueList");
+const newsletterIssueDetail = document.getElementById("newsletterIssueDetail");
+let newsletterIssuesCache = [];
+
+function newsletterEndpoint() {
+  if (window.location.hostname === "localhost" && window.location.port === "8765") {
+    return "http://localhost:8788/beehiiv-newsletters";
+  }
+  return "/.netlify/functions/beehiiv-newsletters";
+}
+
+function sanitizeIssueHtml(html = "") {
+  const template = document.createElement("template");
+  template.innerHTML = html;
+  template.content.querySelectorAll("script, iframe, form, input, button, style").forEach((node) => node.remove());
+  template.content.querySelectorAll("*").forEach((node) => {
+    [...node.attributes].forEach((attribute) => {
+      const name = attribute.name.toLowerCase();
+      const value = attribute.value || "";
+      if (name.startsWith("on") || value.toLowerCase().includes("javascript:")) node.removeAttribute(attribute.name);
+    });
+  });
+  return template.innerHTML;
+}
+
+function renderNewsletterIssueDetail(issue) {
+  if (!newsletterIssueDetail || !issue) return;
+  const content = issue.content ? sanitizeIssueHtml(issue.content) : "<p>" + escapeHtml(issue.summary || "Open the full issue on Beehiiv to read this letter.") + "</p>";
+  newsletterIssueDetail.innerHTML =
+    '<p class="post-kicker">' + escapeHtml(issue.date || "Recent issue") + '</p>' +
+    '<h3>' + escapeHtml(issue.title || "Untitled issue") + '</h3>' +
+    '<p>' + escapeHtml(issue.summary || "A recent INVENEW Intelligence letter.") + '</p>' +
+    '<div class="newsletter-issue-actions">' + (issue.url ? '<a class="btn btn-secondary" href="' + escapeHtml(issue.url) + '" target="_blank" rel="noopener">Read on Beehiiv</a>' : "") + '</div>' +
+    '<div class="newsletter-issue-content">' + content + '</div>';
+}
+
+function renderNewsletterIssues(issues = []) {
+  if (!newsletterIssueList || !newsletterIssueDetail) return;
+  if (!issues.length) {
+    newsletterIssueList.innerHTML = '<article class="newsletter-issue-card"><p class="post-kicker">No issues</p><h3>No newsletter issues found.</h3><p>Publish an issue in Beehiiv and it will appear here.</p></article>';
+    newsletterIssueDetail.innerHTML = '<p class="post-kicker">No issues</p><h3>Nothing to preview yet.</h3><p>Recent newsletter letters will appear here after Beehiiv returns published issues.</p>';
+    return;
+  }
+
+  newsletterIssueList.innerHTML = issues.map((issue, index) =>
+    '<button class="newsletter-issue-card ' + (index === 0 ? "is-active" : "") + '" type="button" data-issue-index="' + index + '">' +
+      '<p class="post-kicker">' + escapeHtml(issue.date || "Recent issue") + '</p>' +
+      '<h3>' + escapeHtml(issue.title || "Untitled issue") + '</h3>' +
+      '<p>' + escapeHtml(issue.summary || "Open this issue to preview the letter.") + '</p>' +
+    '</button>'
+  ).join("");
+
+  newsletterIssueList.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => {
+      newsletterIssueList.querySelectorAll("button").forEach((item) => item.classList.remove("is-active"));
+      button.classList.add("is-active");
+      renderNewsletterIssueDetail(newsletterIssuesCache[Number(button.dataset.issueIndex)]);
+    });
+  });
+
+  renderNewsletterIssueDetail(issues[0]);
+}
+
+async function loadNewsletterIssues() {
+  if (!newsletterIssueList || !newsletterIssueDetail) return;
+
+  try {
+    const response = await fetch(newsletterEndpoint());
+    if (!response.ok) throw new Error("Beehiiv request failed");
+    const data = await response.json();
+    newsletterIssuesCache = Array.isArray(data.issues) ? data.issues : [];
+    renderNewsletterIssues(newsletterIssuesCache);
+  } catch (error) {
+    newsletterIssueList.innerHTML = '<article class="newsletter-issue-card"><p class="post-kicker">Local setup needed</p><h3>Could not load Beehiiv issues.</h3><p>Run the local Beehiiv proxy or deploy the Netlify function to display recent letters.</p></article>';
+    newsletterIssueDetail.innerHTML = '<p class="post-kicker">Connection issue</p><h3>Recent letters are not available in this local view.</h3><p>The page is ready, but the Beehiiv API must be served through a private backend endpoint so the API key is not exposed.</p>';
+  }
+}
+
+
 loadSanityBlog();
+loadNewsletterIssues();
