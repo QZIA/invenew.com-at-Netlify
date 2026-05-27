@@ -3301,7 +3301,9 @@ select:focus { border-color: var(--accent); }
 
 .subscribe-hero h1 {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-  font-weight: 900 !important;
+  font-weight: 950 !important;
+  font-synthesis-weight: auto;
+  -webkit-text-stroke: 0.18px currentColor;
 }
 
 .subscribe-hero .hero-text {
@@ -3314,7 +3316,9 @@ select:focus { border-color: var(--accent); }
   width: min(100%, 720px);
   max-width: 100%;
   min-width: 0;
-  min-height: 0;
+  height: 132px;
+  min-height: 132px;
+  max-height: 132px;
   margin-top: clamp(28px, 4vw, 42px);
   padding: 0;
   border: 0;
@@ -3330,11 +3334,13 @@ select:focus { border-color: var(--accent); }
 .beehiiv-card iframe {
   width: min(100%, 660px) !important;
   max-width: 100% !important;
-  min-height: 150px;
+  height: 132px !important;
+  min-height: 132px;
+  max-height: 132px;
   margin-left: 0;
   margin-right: auto;
   border-radius: 8px;
-  background: transparent;
+  background: transparent !important;
 }
 
 .beehiiv-card * {
@@ -3342,6 +3348,10 @@ select:focus { border-color: var(--accent); }
 }
 
 .beehiiv-card > div {
+  width: min(100%, 720px) !important;
+  max-width: 100% !important;
+  height: 132px !important;
+  max-height: 132px !important;
   background: transparent !important;
   border-radius: 8px;
   overflow: hidden;
