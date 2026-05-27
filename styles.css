@@ -3722,3 +3722,26 @@ select:focus { border-color: var(--accent); }
     height: auto !important;
   }
 }
+
+/* About page flywheel sizing */
+.about-system-diagram {
+  max-width: min(100%, 980px);
+}
+
+.about-system-diagram img {
+  max-width: 100%;
+  object-fit: contain;
+}
+
+@media (max-width: 760px) {
+  .about-system-diagram {
+    padding: 8px;
+    overflow: hidden;
+  }
+
+  .about-system-diagram img {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}
