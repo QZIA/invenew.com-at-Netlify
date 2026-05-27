@@ -7,6 +7,16 @@ const searchPanel = document.getElementById("searchPanel");
 const siteSearch = document.getElementById("siteSearch");
 const searchResults = document.getElementById("searchResults");
 const clearSearch = document.getElementById("clearSearch");
+const searchBox = searchPanel ? searchPanel.querySelector(".search-box") : null;
+let searchClose = null;
+if (searchBox) {
+  searchClose = document.createElement("button");
+  searchClose.className = "search-close";
+  searchClose.type = "button";
+  searchClose.setAttribute("aria-label", "Close search");
+  searchClose.textContent = "X";
+  searchBox.appendChild(searchClose);
+}
 const header = document.querySelector(".site-header");
 const signupForm = document.getElementById("signupForm");
 const formNote = document.getElementById("formNote");
@@ -45,10 +55,35 @@ mobilePanel.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", () => mobilePanel.setAttribute("aria-hidden", "true"));
 });
 
-searchToggle.addEventListener("click", () => {
+function openSearch() {
+  searchPanel.setAttribute("aria-hidden", "false");
+  siteSearch.focus();
+}
+
+function closeSearch() {
+  searchPanel.setAttribute("aria-hidden", "true");
+}
+
+searchToggle.addEventListener("click", (event) => {
+  event.stopPropagation();
   const isOpen = searchPanel.getAttribute("aria-hidden") === "false";
-  searchPanel.setAttribute("aria-hidden", String(isOpen));
-  if (!isOpen) siteSearch.focus();
+  if (isOpen) {
+    closeSearch();
+  } else {
+    openSearch();
+  }
+});
+
+if (searchClose) {
+  searchClose.addEventListener("click", closeSearch);
+}
+
+document.addEventListener("pointerdown", (event) => {
+  const isOpen = searchPanel.getAttribute("aria-hidden") === "false";
+  if (!isOpen) return;
+  if (searchBox && searchBox.contains(event.target)) return;
+  if (searchToggle.contains(event.target)) return;
+  closeSearch();
 });
 
 function renderResults(query = "") {
@@ -72,7 +107,7 @@ renderResults();
 
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
-    searchPanel.setAttribute("aria-hidden", "true");
+    closeSearch();
     mobilePanel.setAttribute("aria-hidden", "true");
   }
 });

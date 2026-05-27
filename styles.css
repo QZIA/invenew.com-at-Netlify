@@ -2365,9 +2365,10 @@ select:focus { border-color: var(--accent); }
 }
 
 .search-box {
+  position: relative;
   max-width: 760px;
   margin-left: auto;
-  padding: 22px;
+  padding: 22px 62px 22px 22px;
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--surface);
@@ -3608,4 +3609,28 @@ select:focus { border-color: var(--accent); }
     max-width: none !important;
     white-space: nowrap !important;
   }
+}
+
+.search-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: inline-grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.86rem;
+  font-weight: 820;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.search-close:hover {
+  border-color: var(--text);
+  background: var(--text);
+  color: var(--bg);
 }
