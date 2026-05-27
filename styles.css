@@ -1018,7 +1018,8 @@ h3 {
   gap: clamp(36px, 8vw, 96px);
   align-items: center;
   max-width: 1120px;
-  padding-top: clamp(34px, 5vw, 64px);
+  padding-top: clamp(58px, 7.4vw, 94px);
+  padding-bottom: clamp(40px, 5vw, 64px);
 }
 
 .about-promise h2,
@@ -1035,16 +1036,21 @@ h3 {
 .about-focus,
 .about-proof {
   max-width: 1280px;
+  padding-top: clamp(42px, 5.8vw, 72px);
+  padding-bottom: clamp(58px, 7.4vw, 94px);
 }
 
 .about-system {
-  max-width: 1320px;
-  padding-top: clamp(50px, 7vw, 86px);
+  max-width: none;
+  padding: var(--band-padding);
+  background: var(--soft);
 }
 
 .about-system .section-title-row {
   align-items: end;
   gap: clamp(28px, 5vw, 72px);
+  max-width: 1320px;
+  margin: 0 auto;
 }
 
 .about-system .section-title-row > div {
@@ -1056,6 +1062,7 @@ h3 {
 }
 
 .about-system-diagram {
+  max-width: 1320px;
   margin: clamp(26px, 4vw, 42px) 0 0;
   padding: clamp(10px, 1.8vw, 18px);
   border: 1px solid var(--line);
@@ -1063,6 +1070,8 @@ h3 {
   background: var(--surface);
   box-shadow: 0 18px 55px rgba(31, 41, 55, 0.08);
   overflow-x: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .about-system-diagram img {
@@ -1463,8 +1472,15 @@ h3 {
 
 .about-foundation,
 .about-expand {
-  background: var(--soft);
   padding: var(--band-padding);
+}
+
+.about-foundation {
+  background: var(--surface);
+}
+
+.about-expand {
+  background: var(--soft);
 }
 
 .foundation-inner,
@@ -3463,5 +3479,58 @@ select:focus { border-color: var(--accent); }
     width: 100%;
     max-width: min(calc(100vw - 32px), 358px);
     overflow-wrap: break-word;
+  }
+
+  .about-promise,
+  .about-focus,
+  .about-proof,
+  .messaging-pillars {
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .foundation-inner,
+  .expand-inner {
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+  }
+
+  .about-promise > *,
+  .about-focus > *,
+  .about-system .section-title-row > *,
+  .about-proof > *,
+  .messaging-pillars > *,
+  .topic-grid article,
+  .home-card-grid article,
+  .foundation-grid article,
+  .pillar-grid article {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .about-promise h2,
+  .about-system h2,
+  .about-proof h2,
+  .about-expand h2 {
+    font-size: clamp(1.8rem, 7.6vw, 2.15rem);
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+  }
+
+  .about-system {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .about-system .section-title-row {
+    display: grid;
+    align-items: start;
+  }
+
+  .about-system-diagram {
+    width: 100%;
+    max-width: 100%;
   }
 }
