@@ -757,7 +757,7 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   max-width: 1040px;
-  padding-top: 0;
+  padding-top: clamp(34px, 5vw, 58px);
   padding-bottom: 70px;
 }
 
@@ -1115,7 +1115,7 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
   max-width: 1120px;
-  padding-top: 0;
+  padding-top: clamp(34px, 5vw, 58px);
 }
 
 .research-assets article {
@@ -1289,7 +1289,7 @@ h3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 28px;
   max-width: 1280px;
-  padding-top: 0;
+  padding-top: clamp(34px, 5vw, 58px);
 }
 
 .post-card {
@@ -2912,7 +2912,7 @@ select:focus { border-color: var(--accent); }
   grid-template-columns: 1fr;
   gap: clamp(28px, 4vw, 46px);
   max-width: 1360px;
-  padding-top: 0;
+  padding-top: clamp(34px, 5vw, 58px);
 }
 
 .featured-article-card,
@@ -3134,7 +3134,6 @@ select:focus { border-color: var(--accent); }
 }
 
 .blog-featured {
-  padding-top: 0;
   padding-bottom: clamp(58px, 8vw, 96px);
 }
 
