@@ -1043,6 +1043,8 @@ h3 {
 .about-system {
   max-width: none;
   padding: var(--band-padding);
+  border-top: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
   background: var(--soft);
 }
 
@@ -1480,6 +1482,7 @@ h3 {
 }
 
 .about-expand {
+  border-top: 1px solid color-mix(in srgb, var(--line) 82%, transparent);
   background: var(--soft);
 }
 
