@@ -3334,7 +3334,7 @@ select:focus { border-color: var(--accent); }
   margin-left: 0;
   margin-right: auto;
   border-radius: 8px;
-  background: var(--green);
+  background: transparent;
 }
 
 .beehiiv-card * {
@@ -3342,7 +3342,7 @@ select:focus { border-color: var(--accent); }
 }
 
 .beehiiv-card > div {
-  background: var(--green) !important;
+  background: transparent !important;
   border-radius: 8px;
   overflow: hidden;
 }

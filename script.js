@@ -471,6 +471,38 @@ async function loadNewsletterIssues() {
   }
 }
 
+function lockNewsletterHeroTypography() {
+  const hero = document.querySelector(".subscribe-hero");
+  if (!hero) return;
 
+  const styleId = "newsletter-hero-style-lock";
+  const css = [
+    "html body main .subscribe-hero .subscribe-hero-copy > .eyebrow{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif!important;font-weight:850!important;letter-spacing:.08em!important;text-transform:uppercase!important;}",
+    "html body main .subscribe-hero .subscribe-hero-copy > h1{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif!important;font-weight:900!important;line-height:1.03!important;letter-spacing:0!important;color:var(--text)!important;}",
+    "html body main .subscribe-hero .subscribe-hero-copy > .hero-text{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,\"Segoe UI\",sans-serif!important;font-weight:500!important;color:var(--muted)!important;}"
+  ].join("");
+
+  const ensureStyleLast = () => {
+    let style = document.getElementById(styleId);
+    if (!style) {
+      style = document.createElement("style");
+      style.id = styleId;
+      style.textContent = css;
+    }
+    if (document.head.lastElementChild !== style) {
+      document.head.appendChild(style);
+    }
+  };
+
+  ensureStyleLast();
+
+  const observer = new MutationObserver(() => {
+    window.requestAnimationFrame(ensureStyleLast);
+  });
+  observer.observe(document.head, { childList: true });
+}
+
+
+lockNewsletterHeroTypography();
 loadSanityBlog();
 loadNewsletterIssues();
