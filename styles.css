@@ -3634,3 +3634,91 @@ select:focus { border-color: var(--accent); }
   background: var(--text);
   color: var(--bg);
 }
+
+@media (max-width: 640px) {
+  .newsletter-issues-band {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .newsletter-issues-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+    min-width: 0;
+  }
+
+  .newsletter-issue-list,
+  .newsletter-issue-detail,
+  .newsletter-issue-content {
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .newsletter-issue-card {
+    grid-template-columns: 64px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px;
+    min-width: 0;
+  }
+
+  .newsletter-issue-thumb {
+    width: 64px;
+  }
+
+  .newsletter-issue-card-title {
+    font-size: clamp(1rem, 5.4vw, 1.18rem);
+    line-height: 1.16;
+    word-break: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .newsletter-issue-card .post-kicker {
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+  }
+
+  .newsletter-pagination {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .newsletter-pagination button {
+    min-width: 0;
+    padding: 0 12px;
+  }
+
+  .newsletter-pagination span {
+    text-align: center;
+    white-space: nowrap;
+    font-size: 0.94rem;
+  }
+
+  .newsletter-issue-detail {
+    min-height: 0;
+    padding: 22px 18px;
+    overflow: hidden;
+  }
+
+  .newsletter-issue-detail h3 {
+    max-width: 100%;
+    font-size: clamp(2rem, 10vw, 2.8rem);
+    line-height: 1.02;
+    overflow-wrap: anywhere;
+  }
+
+  .newsletter-issue-content {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .newsletter-issue-content img,
+  .newsletter-issue-content iframe,
+  .newsletter-issue-content table {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
