@@ -3229,7 +3229,6 @@ select:focus { border-color: var(--accent); }
 
 :is(.page-hero, .labs-hero, .about-meaning, .blog-section-head) {
   background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 72%, var(--soft)) 0%, transparent 100%);
-  border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, transparent);
 }
 
 .subscribe-hero,
