@@ -1707,6 +1707,7 @@ h3 {
 }
 
 .newsletter-issue-card.is-active {
+  position: relative;
   border-color: var(--text);
   background: var(--blue);
 }
@@ -3451,6 +3452,69 @@ select:focus { border-color: var(--accent); }
     max-width: calc(100vw - 48px);
   }
 
+  .beehiiv-card {
+    width: calc(100vw - 32px);
+    max-width: calc(100vw - 32px);
+    height: 72px;
+    min-height: 72px;
+    max-height: 72px;
+    overflow: hidden;
+  }
+
+  .beehiiv-card iframe,
+  .beehiiv-card > div {
+    width: 760px !important;
+    max-width: none !important;
+    height: 190px !important;
+    min-height: 190px !important;
+    max-height: 190px !important;
+    transform-origin: top left;
+  }
+
+  .beehiiv-card > iframe,
+  .beehiiv-card > div {
+    transform: translateY(-38px) scale(0.47);
+  }
+
+  @media (min-width: 411px) {
+    .beehiiv-card {
+      height: 80px;
+      min-height: 80px;
+      max-height: 80px;
+    }
+
+    .beehiiv-card > iframe,
+    .beehiiv-card > div {
+      transform: translateY(-38px) scale(0.52);
+    }
+  }
+
+  @media (max-width: 375px) {
+    .beehiiv-card {
+      height: 66px;
+      min-height: 66px;
+      max-height: 66px;
+    }
+
+    .beehiiv-card > iframe,
+    .beehiiv-card > div {
+      transform: translateY(-38px) scale(0.43);
+    }
+  }
+
+  @media (max-width: 340px) {
+    .beehiiv-card {
+      height: 58px;
+      min-height: 58px;
+      max-height: 58px;
+    }
+
+    .beehiiv-card > iframe,
+    .beehiiv-card > div {
+      transform: translateY(-38px) scale(0.38);
+    }
+  }
+
   .landing-position {
     padding-top: 34px;
     padding-bottom: 42px;
@@ -3661,6 +3725,18 @@ select:focus { border-color: var(--accent); }
     gap: 12px;
     padding: 12px;
     min-width: 0;
+  }
+
+  .newsletter-issue-card.is-active::after {
+    content: "Selected issue";
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
   }
 
   .newsletter-issue-thumb {

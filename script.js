@@ -392,6 +392,7 @@ async function loadSanityBlog() {
 const newsletterIssueList = document.getElementById("newsletterIssueList");
 const newsletterIssueDetail = document.getElementById("newsletterIssueDetail");
 let newsletterIssuesCache = [];
+const mobileNewsletterQuery = window.matchMedia("(max-width: 640px)");
 
 function newsletterEndpoint() {
   if (window.location.hostname === "localhost" && window.location.port === "8765") {
@@ -419,6 +420,7 @@ function sanitizeIssueHtml(html = "") {
 
 function renderNewsletterIssueDetail(issue) {
   if (!newsletterIssueDetail || !issue) return;
+  newsletterIssueDetail.setAttribute("tabindex", "-1");
   const content = issue.content ? sanitizeIssueHtml(issue.content) : "<p>" + escapeHtml(issue.summary || "Open the full issue on Beehiiv to read this letter.") + "</p>";
   newsletterIssueDetail.innerHTML =
     '<p class="post-kicker">' + escapeHtml(issue.date || "Recent issue") + '</p>' +
@@ -426,6 +428,18 @@ function renderNewsletterIssueDetail(issue) {
     '<p>' + escapeHtml(issue.summary || "A recent INVENEW Intelligence letter.") + '</p>' +
     '<div class="newsletter-issue-actions">' + (issue.url ? '<a class="btn btn-secondary" href="' + escapeHtml(issue.url) + '" target="_blank" rel="noopener">Read on Beehiiv</a>' : "") + '</div>' +
     '<div class="newsletter-issue-content">' + content + '</div>';
+}
+
+function moveToNewsletterIssueDetail() {
+  if (!newsletterIssueDetail || !mobileNewsletterQuery.matches) return;
+  window.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
+      const headerOffset = header ? header.getBoundingClientRect().height + 14 : 14;
+      const detailTop = newsletterIssueDetail.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: Math.max(0, detailTop), behavior: "smooth" });
+      window.setTimeout(() => newsletterIssueDetail.focus({ preventScroll: true }), 360);
+    });
+  });
 }
 
 const newsletterIssuesPerPage = 10;
@@ -463,7 +477,7 @@ function renderNewsletterIssues(issues = [], page = newsletterIssuesPage) {
 
   newsletterIssueList.innerHTML = visibleIssues.map((issue, index) => {
     const issueIndex = start + index;
-    return '<button class="newsletter-issue-card ' + (index === 0 ? "is-active" : "") + '" type="button" data-issue-index="' + issueIndex + '">' +
+    return '<button class="newsletter-issue-card ' + (index === 0 ? "is-active" : "") + '" type="button" data-issue-index="' + issueIndex + '" aria-pressed="' + (index === 0 ? "true" : "false") + '">' +
       newsletterIssueThumbnail(issue, issueIndex) +
       '<span class="newsletter-issue-card-copy">' +
         '<span class="newsletter-issue-card-title">' + escapeHtml(issue.title || "Untitled issue") + '</span>' +
@@ -474,9 +488,14 @@ function renderNewsletterIssues(issues = [], page = newsletterIssuesPage) {
 
   newsletterIssueList.querySelectorAll(".newsletter-issue-card").forEach((button) => {
     button.addEventListener("click", () => {
-      newsletterIssueList.querySelectorAll(".newsletter-issue-card").forEach((item) => item.classList.remove("is-active"));
+      newsletterIssueList.querySelectorAll(".newsletter-issue-card").forEach((item) => {
+        item.classList.remove("is-active");
+        item.setAttribute("aria-pressed", "false");
+      });
       button.classList.add("is-active");
+      button.setAttribute("aria-pressed", "true");
       renderNewsletterIssueDetail(newsletterIssuesCache[Number(button.dataset.issueIndex)]);
+      moveToNewsletterIssueDetail();
     });
   });
 
