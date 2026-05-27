@@ -1037,6 +1037,42 @@ h3 {
   max-width: 1280px;
 }
 
+.about-system {
+  max-width: 1320px;
+  padding-top: clamp(50px, 7vw, 86px);
+}
+
+.about-system .section-title-row {
+  align-items: end;
+  gap: clamp(28px, 5vw, 72px);
+}
+
+.about-system .section-title-row > div {
+  max-width: 760px;
+}
+
+.about-system .section-title-row > p {
+  max-width: 520px;
+}
+
+.about-system-diagram {
+  margin: clamp(26px, 4vw, 42px) 0 0;
+  padding: clamp(10px, 1.8vw, 18px);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 18px 55px rgba(31, 41, 55, 0.08);
+  overflow-x: auto;
+}
+
+.about-system-diagram img {
+  display: block;
+  width: 100%;
+  min-width: 760px;
+  height: auto;
+  border-radius: 6px;
+}
+
 .about-proof > div:first-child {
   max-width: 820px;
   margin-bottom: 28px;
